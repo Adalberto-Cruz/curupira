@@ -90,3 +90,9 @@
 .github-link{display:inline-flex;align-items:center;gap:6px;color:inherit;text-decoration:none;font-size:14px;margin-right:12px}
 .github-link:hover{text-decoration:underline}
 @media (max-width:700px){.github-link span{display:none}}
+
+/* carbono e água no painel do imóvel */
+.car-extra{margin-top:14px;padding:12px 14px;border:1px solid #e3e0d6;border-radius:8px;background:#fbfaf5;font-size:13px}
+.car-extra h3{margin:0 0 6px;font-size:15px}.car-extra-pct b{font-size:22px;color:#2e6b45}
+.car-extra-bar{height:8px;background:#e9e4d6;border-radius:4px;margin:6px 0 8px;overflow:hidden}.car-extra-bar i{display:block;height:100%;background:#4d7957}
+.car-extra ul{margin:0 0 6px 16px;padding:0}

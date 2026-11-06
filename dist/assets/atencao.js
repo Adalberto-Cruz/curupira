@@ -39,6 +39,26 @@
   const classes=Object.entries(row.classes_deter||{}).map(([c,n])=>escape(c)+': '+number(n,0)).join(' · ')||'Nenhum alerta cruzado na base';
   return `<div class="attention-card"><h3>Índice de atenção por CAR</h3><p class="attention-score${locks.length?' attention-critical':''}"><strong>${number(row.nota)}</strong><span>/ 100</span></p>${locks.length?`<p class="attention-critical"><strong>Trava crítica:</strong> ${locks.map(escape).join(' e ')}. A trava fixa a nota em 100; não se somam duas travas.</p>`:''}<p class="attention-disclaimer">${DISCLAIMER}</p><dl class="attention-factors">${Object.entries(labels).map(([key,label])=>`<div><dt>${label}</dt><dd>${number(row.contribuicoes[key])} pontos</dd></div>`).join('')}</dl><details><summary>Dados, pesos e limites</summary><p>PRODES no CAR: ${number(row.prodes_no_car_ha,4)} ha. Área geodésica do CAR: ${number(row.area_car_ha,4)} ha. Fração usada: ${number(row.fracao_prodes*100,2)}%. A área PRODES foi dissolvida antes da medição.</p><p>DETER: ${classes}.</p><p>Fontes locais: SICAR (05/11/2026), Funai, cópia de embargos IPAAM/Ibama, INPE PRODES/DETER e processos ANM. Focos: amostra AM de 29/10 a 04/11/2026, todos os satélites; não são incêndios únicos nem a série nacional. A vigência dos embargos não foi revalidada.</p><p>0 significa ausência de contribuição nestas bases e regras; não comprova regularidade ou ausência de alteração. Trava crítica indica prioridade de conferência, não conclusão jurídica. Cadastro cancelado mantém o índice no detalhe, mas fica fora do top 20.</p><p>Versão 1.0.0 · <a href="data/atencao/pesos.json" target="_blank" rel="noopener">Consultar pesos</a> · <a href="data/atencao/manifesto.json" target="_blank" rel="noopener">Fontes, períodos e hashes</a></p></details></div>`;
  }
+ // Carbono e água no painel do imóvel. Carbono é estimativa por regra (não é medição).
+ const C_POR_HA=156; // tC/ha, média da Amazônia brasileira (Brown & Lugo 1992)
+ function carbono(row){
+  const area=Number(row.area_car_ha)||0,desm=Math.min(Number(row.prodes_no_car_ha)||0,area);
+  const pct=area>0?100*(1-desm/area):0,estoque=(area-desm)*C_POR_HA;
+  return {area,desm,pct,estoque,co2:estoque*44/12,perdido:desm*C_POR_HA};
+ }
+ const nf=(v,d=0)=>Number(v).toLocaleString('pt-BR',{maximumFractionDigits:d});
+ let aguaDoc=null;
+ async function extraHTML(row,municipio){
+  const c=carbono(row);
+  let agua='<li>Pressão sobre a água: indisponível</li>';
+  try{
+   if(!aguaDoc){const r=await fetch('data/agua/indicador.json?v=1.0.0');if(!r.ok)throw Error();aguaDoc=await r.json();}
+   const w=aguaDoc.municipios[municipio];
+   if(w)agua=`<li>Pressão sobre a água no município: <b>${w.score} / 100</b> (${escape(w.classe)})</li>`;
+  }catch{}
+  return `<section class="car-extra"><h3>Carbono e água</h3><div class="car-extra-pct"><b>${nf(c.pct,1)}%</b> da área sem desmatamento PRODES</div><div class="car-extra-bar"><i style="width:${Math.max(0,Math.min(100,c.pct)).toFixed(1)}%"></i></div><ul><li>Carbono estimado na área: <b>${nf(c.estoque)} tC</b> (≈ ${nf(c.co2)} tCO₂e)</li><li>Carbono perdido no desmatamento: <b>${nf(c.perdido)} tC</b> em ${nf(c.desm,1)} ha</li>${agua}</ul><p class="panel-note">Estimativa por regra: ${C_POR_HA} tC/ha, média para a Amazônia brasileira (Brown &amp; Lugo, 1992). Considera só o desmatamento PRODES e não separa áreas que nunca foram floresta. Não é crédito de carbono. Mapa de biomassa por satélite (ESA CCI) em desenvolvimento.</p></section>`;
+ }
+
  async function renderDetail(target,code,municipio,isCurrent=()=>true,source=store){
   if(!target)return;
   target.innerHTML='<p role="status">Carregando índice por regras…</p>';
@@ -48,6 +68,7 @@
    const row=data.by_car[code];
    if(!row)throw Error('CAR não encontrado na base de atenção.');
    target.innerHTML=detailHTML(row);
+   extraHTML(row,municipio).then(h=>{if(isCurrent()&&target.isConnected)target.insertAdjacentHTML('beforeend',h);});
   }catch{
    if(!isCurrent()||!target.isConnected)return;
    target.innerHTML=`<p role="status">Índice indisponível. Isso não equivale a nota zero.</p><button class="btn btn-small" type="button">Tentar carregar índice</button>`;
@@ -72,6 +93,6 @@
    ranking.querySelector('button').onclick=()=>renderList(target,options,source);
   }
  }
- const api={DISCLAIMER,createStore,validateRow,validateData,detailHTML,renderDetail,renderList};
+ const api={DISCLAIMER,createStore,validateRow,validateData,detailHTML,renderDetail,renderList,carbono,C_POR_HA};
  if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AngelimAttention=api;
 })(typeof window==='undefined'?globalThis:window);

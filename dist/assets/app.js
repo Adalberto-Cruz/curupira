@@ -234,6 +234,7 @@ function reportEnvironment(ctx){
   ['Alertas DETER',n.deter?n.deter+' alerta(s)'+(classes.length?': '+classes.map(([k,v])=>(deterNames[k]||k)+' '+v).join(', '):''):'Nenhum'],
   ['Processos minerários ANM',n.anm?n.anm+' processo(s)':'Nenhum'],
   ['Focos de calor INPE',n.focos?n.focos+' foco(s)':'Nenhum'],
+  ['Carbono estimado na área',(()=>{const a=Number(c.area_car_ha)||0,d=Math.min(Number(c.prodes_no_car_ha)||0,a);return a?fmt((a-d)*156,0)+' tC ('+fmt(100*(1-d/a),1)+'% da área sem desmatamento PRODES) · estimativa por regra, 156 tC/ha':'Indisponível';})()],
   ['Pressão sobre a água no município',ctx.water?ctx.water.score+' / 100 ('+ctx.water.classe+') · estimativa por regras':'Indisponível']
  ];
  return `<h2>03. Contexto ambiental da área do CAR</h2><p>Cruzamento do perímetro declarado com bases públicas (FUNAI, IPAAM/Ibama, INPE PRODES/DETER/focos, ANM).</p><table><tbody>${rows.map(([k,v])=>`<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join('')}</tbody></table><p>${esc(ctx.disclaimer||'Índice por regras sobre dados públicos. Não é laudo nem prova de infração.')} A pressão sobre a água é uma estimativa por regras; medição de turbidez por satélite em desenvolvimento.</p>${pend}`;
