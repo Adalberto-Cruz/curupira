@@ -1,0 +1,25 @@
+* text=auto eol=lf
+
+# Binarios nao recebem conversao de fim de linha, diff ou merge textual.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.7z binary
+*.rar binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.mp3 binary
+*.mp4 binary
+*.sqlite binary
+*.gpkg binary
+*.shp binary
+*.shx binary
+*.dbf binary

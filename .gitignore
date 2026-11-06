@@ -1,0 +1,36 @@
+.openai/*.tar.gz
+.openai/*.zip
+# Ambiente e configuracao local.
+.venv/
+.env
+.env.*
+!.env.example
+acesso-local/
+*.pem
+*.key
+credentials*.json
+*service-account*.json
+# Dados de origem e pacotes gerados.
+dados/
+data/raw/
+dist/data/brutos/
+dist/data/ambiental/municipios/
+dist/data/ambiental/intersecoes/
+dist/data/focos-brasil/*
+!dist/data/focos-brasil/manifesto.json
+dist/data/atencao/*
+!dist/data/atencao/pesos.json
+pesquisa/
+work/
+*.tar.gz
+*.rar
+*.zip
+__pycache__/
+*.py[cod]
+*.partial
+
+# Configuracao local do Codex (fora do repositorio publico)
+.openai/
+
+# Configuracao local do Codex (fora do repositorio publico)
+.openai/

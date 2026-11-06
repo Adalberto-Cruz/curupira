@@ -1,0 +1,8 @@
+# Dependencias diretas e numericas usadas pelo servidor e pelo pipeline.
+earthengine-api==1.7.51
+requests==2.34.2
+shapely==2.1.2
+pyshp==2.3.1
+pymupdf==1.26.6
+python-dotenv==1.2.1
+numpy==2.5.4

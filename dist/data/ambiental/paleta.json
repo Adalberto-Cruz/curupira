@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "method": {
+    "palette": "Adaptação da paleta Okabe–Ito, com tons clareados para satélite escuro; branco e cinza para contraste e classes sem correspondência.",
+    "reference": "https://jfly.uni-koeln.de/color/",
+    "note": "Cores combinadas com tracejados, rótulos e contagens. Simulações não substituem avaliação com usuários."
+  },
+  "municipalities": {
+    "color": "#f0f0e4",
+    "selectedColor": "#ff6b35",
+    "hoverColor": "#ffffff",
+    "countScale": [
+      "#b8cba1",
+      "#99b382",
+      "#789a66",
+      "#527c4d",
+      "#2f633e",
+      "#17472f"
+    ]
+  },
+  "cars": {
+    "AT": {
+      "color": "#e4f5c9",
+      "dashArray": ""
+    },
+    "PE": {
+      "color": "#ffd166",
+      "dashArray": "6 3"
+    },
+    "SU": {
+      "color": "#f39bc9",
+      "dashArray": "2 3"
+    },
+    "CA": {
+      "color": "#9bbcff",
+      "dashArray": "8 3 2 3"
+    }
+  },
+  "carSelection": {
+    "color": "#ffffff",
+    "hoverColor": "#ffffff"
+  },
+  "layers": {
+    "ti": {
+      "color": "#70c9ff",
+      "style": {
+        "mode": "outline",
+        "weight": 2,
+        "fillOpacity": 0,
+        "dashArray": "10 4"
+      }
+    },
+    "anm": {
+      "color": "#f0e442",
+      "style": {
+        "mode": "outline",
+        "weight": 1.8,
+        "fillOpacity": 0,
+        "dashArray": "3 5"
+      }
+    },
+    "embargos": {
+      "color": "#e5a0cb",
+      "style": {
+        "mode": "outline",
+        "weight": 2.2,
+        "fillOpacity": 0,
+        "dashArray": "10 3 2 3"
+      }
+    },
+    "prodes": {
+      "color": "#f5b83d",
+      "style": {
+        "mode": "event",
+        "weight": 1,
+        "fillOpacity": 0.5
+      }
+    },
+    "deter": {
+      "color": "#bdbdbd",
+      "style": {
+        "mode": "event",
+        "weight": 1.4,
+        "fillOpacity": 0.55,
+        "dashArray": "2 3",
+        "categories": {
+          "DESMATAMENTO_CR": {
+            "label": "Desmatamento com solo exposto",
+            "color": "#ffab8b",
+            "dashArray": ""
+          },
+          "DESMATAMENTO_VEG": {
+            "label": "Desmatamento com vegetação",
+            "color": "#f0e442",
+            "dashArray": "6 2"
+          },
+          "CICATRIZ_DE_QUEIMADA": {
+            "label": "Cicatriz de queimada",
+            "color": "#e5a0cb",
+            "dashArray": ""
+          },
+          "DEGRADACAO": {
+            "label": "Degradação",
+            "color": "#70c9ff",
+            "dashArray": "2 3"
+          },
+          "MINERACAO": {
+            "label": "Mineração",
+            "color": "#f5f5f5",
+            "dashArray": "8 3"
+          },
+          "CS_DESORDENADO": {
+            "label": "Corte seletivo desordenado",
+            "color": "#70d6b1",
+            "dashArray": "3 3"
+          },
+          "CS_GEOMETRICO": {
+            "label": "Corte seletivo geométrico",
+            "color": "#8daef0",
+            "dashArray": "8 2 2 2"
+          },
+          "CORTE_SELETIVO": {
+            "label": "Corte seletivo",
+            "color": "#f5b83d",
+            "dashArray": "1 3"
+          }
+        }
+      }
+    },
+    "focos": {
+      "color": "#d6b3ff",
+      "style": {
+        "mode": "point",
+        "weight": 1.5,
+        "fillOpacity": 1,
+        "radius": 4
+      }
+    }
+  }
+}

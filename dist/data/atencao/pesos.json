@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "scope": "AM",
+  "disclaimer": "Índice por regras sobre dados públicos. Não é laudo nem prova de infração. Modelo de IA (LightGBM) em desenvolvimento.",
+  "critical_layers": ["ti", "embargos"],
+  "critical_score": 100,
+  "prodes": {"max_points": 40, "fraction_for_max": 1},
+  "deter": {
+    "max_points": 35,
+    "class_points": {
+      "DESMATAMENTO_CR": 2,
+      "DESMATAMENTO_VEG": 2,
+      "DEGRADACAO": 2,
+      "CICATRIZ_DE_QUEIMADA": 1,
+      "MINERACAO": 6,
+      "CS_DESORDENADO": 4,
+      "CS_GEOMETRICO": 4,
+      "CORTE_SELETIVO": 4
+    }
+  },
+  "anm": {"points_per_record": 3, "max_points": 15},
+  "focos": {"points_per_record": 1, "max_points": 10},
+  "ranking": {"limit": 20, "excluded_statuses": ["CA"], "minimum_score_exclusive": 0}
+}
