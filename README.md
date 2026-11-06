@@ -53,7 +53,16 @@ A rules-based score for every CAR, combining deforestation inside the property (
 ### 5. Water pressure indicator (0 to 100 per municipality)
 Rules-based estimate from DETER mining alerts (35%), ANM titles with authorized extraction (25%) and recent deforestation, PRODES 2023 to 2025 plus DETER in the last 3 years (40%). Each component is a percentile among the 62 municipalities, so a municipality with no signal scores 0. It is shown as an estimate. Satellite turbidity measurement is under development.
 
-### 6. Reports in PDF
+### 6. Carbon estimate per property
+When a property is opened, the side panel shows a **Carbon and water** block:
+- Share of the property area without PRODES deforestation, with a bar.
+- Estimated carbon stock in the area: (declared area minus PRODES deforested area) x **156 tC/ha**, the average total forest carbon for the Brazilian Amazon from Brown & Lugo (1992). It is also shown in tCO2e (x 44/12).
+- Carbon lost to deforestation: PRODES deforested hectares x 156 tC/ha.
+- Water pressure score of the municipality.
+
+The inputs are real (CAR area and PRODES deforestation per property). Only the carbon density is a regional reference average, so the result is an **estimate, not a measurement**. It does not separate areas that were never forest, it is not a carbon credit, and it will be replaced by the ESA CCI Biomass satellite map. The same estimate appears in the property dossier.
+
+### 7. Reports in PDF
 Exports require login (demo: `admin` / `admin`).
 - **Property dossier:** CAR data plus its environmental context (Indigenous Land, embargo, PRODES hectares and share of the area, DETER alerts by class, ANM, fire hotspots, attention score, water pressure) and the analyst's notes.
 - **Municipal report:** applied filters, CAR summary by status, DETER alerts by priority and class, how many properties overlap each layer, top 20 properties, water pressure, limitations and sources.
@@ -151,7 +160,7 @@ INPE (PRODES, DETER, Programa Queimadas), SFB/SICAR (CAR), FUNAI, Ibama, IPAAM, 
 - **AI change detection:** compare satellite images from different dates and raise the alert directly. For example, forest on day 26 and a burn scar on day 28.
 - **LightGBM classifier** with SHAP explanations, calibrated and spatially cross-validated, to replace the rules-based attention index.
 - **Permanent Preservation Areas (APP) and Legal Reserve** checks based on Law 12.651/2012.
-- Deforestation for pasture and carbon stock per property (ESA CCI Biomass, always shown with its uncertainty).
+- Deforestation for pasture, and carbon stock per property measured from ESA CCI Biomass (replacing the current reference-density estimate), always shown with its uncertainty.
 - Satellite water turbidity downstream of mining, validated against ANA stations.
 - **Nationwide coverage** with vector tiles (PMTiles), already tested on Amazonas.
 - Real authentication with Amazon Cognito.
